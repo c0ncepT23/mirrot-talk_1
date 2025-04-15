@@ -1,0 +1,416 @@
+/* static/css/modern-styles.css */
+:root {
+    --primary-color: #4285F4;
+    --primary-light: #85B2FF;
+    --primary-dark: #3367D6;
+    --accent-color: #FF5252;
+    --text-dark: #333333;
+    --text-light: #767676;
+    --text-lighter: #AAAAAA;
+    --background-light: #F8F9FA;
+    --background-white: #FFFFFF;
+    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --radius-small: 8px;
+    --radius-medium: 12px;
+    --radius-large: 20px;
+    --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--background-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+.app-container {
+    max-width: 500px;
+    margin: 0 auto;
+    height: 100vh;
+    position: relative;
+}
+
+/* Screen Styles */
+.screen {
+    background-color: var(--background-white);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: var(--radius-small);
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+}
+
+.screen-content {
+    padding: 30px 20px;
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.screen-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.screen-header h2 {
+    flex: 1;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.back-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: var(--text-dark);
+    cursor: pointer;
+    padding: 10px;
+    margin-left: -10px;
+}
+
+/* Welcome Screen */
+#welcomeScreen {
+    text-align: center;
+    justify-content: center;
+}
+
+#welcomeScreen h1 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.tagline {
+    font-size: 18px;
+    color: var(--text-light);
+    margin-bottom: 40px;
+}
+
+.feature-text {
+    margin-bottom: 60px;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 0 20px;
+}
+
+/* Occasion Screen */
+.occasion-select {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #E0E0E0;
+    border-radius: var(--radius-small);
+    background-color: white;
+    font-size: 16px;
+    margin-bottom: 30px;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23131313%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px top 50%;
+    background-size: 12px auto;
+}
+
+.upload-area {
+    border: 2px dashed #E0E0E0;
+    border-radius: var(--radius-medium);
+    padding: 40px 20px;
+    text-align: center;
+    margin-bottom: 30px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: var(--background-light);
+}
+
+.upload-area:hover {
+    border-color: var(--primary-color);
+    background-color: #F0F5FF;
+}
+
+.upload-area i {
+    font-size: 48px;
+    color: var(--text-lighter);
+    margin-bottom: 15px;
+}
+
+.upload-area p {
+    font-size: 18px;
+    color: var(--text-light);
+}
+
+/* Analysis Screen */
+.image-preview-container {
+    margin: 10px 0 30px;
+    border-radius: var(--radius-medium);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    background-color: #f0f0f0;
+    aspect-ratio: 3/4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-preview-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-preview-container.small {
+    height: 120px;
+    aspect-ratio: auto;
+    margin: 0 0 20px;
+}
+
+.analysis-status {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.loading-indicator {
+    margin-bottom: 15px;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(66, 133, 244, 0.2);
+    border-radius: 50%;
+    border-top-color: var(--primary-color);
+    animation: spin 1s ease-in-out infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Feedback Screen */
+.rating-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.rating-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--shadow-soft);
+}
+
+#ratingScore {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.rating-max {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.feedback-container {
+    background-color: var(--background-light);
+    border-radius: var(--radius-medium);
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.feedback-tabs {
+    display: flex;
+    border-bottom: 1px solid #E0E0E0;
+    margin-bottom: 15px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.feedback-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.tab-button {
+    padding: 10px 15px;
+    background: none;
+    border: none;
+    font-size: 14px;
+    color: var(--text-light);
+    cursor: pointer;
+    white-space: nowrap;
+    position: relative;
+}
+
+.tab-button.active {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.tab-button.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+.feedback-content {
+    padding: 5px;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.tab-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#suggestionsContent {
+    padding-left: 20px;
+}
+
+#suggestionsContent li {
+    margin-bottom: 8px;
+}
+
+.feedback-tone {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tone-button {
+    background: none;
+    border: 1px solid #E0E0E0;
+    padding: 8px 20px;
+    margin: 0 5px;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tone-button.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.chat-container {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+#chatInput {
+    flex: 1;
+    padding: 12px 15px;
+    border: 1px solid #E0E0E0;
+    border-radius: 24px;
+    font-size: 14px;
+}
+
+#sendButton {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    margin-left: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#sendButton i {
+    font-size: 16px;
+}
+
+/* Buttons */
+.primary-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--radius-small);
+    padding: 15px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 100%;
+    margin-top: auto;
+}
+
+.primary-button:hover {
+    background-color: var(--primary-dark);
+}
+
+.primary-button:disabled {
+    background-color: var(--text-lighter);
+    cursor: not-allowed;
+}
+
+.secondary-button {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: var(--radius-small);
+    padding: 15px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.secondary-button:hover {
+    background-color: #F0F5FF;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .screen-content {
+        padding: 20px 15px;
+    }
+
+    #welcomeScreen h1 {
+        font-size: 32px;
+    }
+
+    .feature-text {
+        font-size: 18px;
+    }
+
+    .tab-button {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+}

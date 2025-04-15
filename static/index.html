@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>StyleMirror | Fashion Advisor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/modern-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Initial Screen -->
+        <div class="screen" id="welcomeScreen">
+            <div class="screen-content">
+                <h1>StyleMirror</h1>
+                <p class="tagline">Your Personal Fashion Companion</p>
+                <div class="feature-text">
+                    <p>Get expert, kind, constructive feedback on your outfits</p>
+                </div>
+                <button class="primary-button" id="startButton">Upload a photo</button>
+            </div>
+        </div>
+
+        <!-- Occasion Selection Screen -->
+        <div class="screen" id="occasionScreen" style="display: none;">
+            <div class="screen-content">
+                <div class="screen-header">
+                    <button class="back-button" data-target="welcomeScreen"><i class="fas fa-arrow-left"></i></button>
+                    <h2>What's the occasion?</h2>
+                </div>
+                
+                <select id="occasionSelect" class="occasion-select">
+                    <option value="casual">Casual</option>
+                    <option value="work">Work</option>
+                    <option value="dateNight">Date Night</option>
+                    <option value="formal">Formal Event</option>
+                    <option value="athletic">Athletic/Workout</option>
+                </select>
+
+                <div class="upload-area" id="uploadArea">
+                    <i class="fas fa-camera"></i>
+                    <p>Upload Photo</p>
+                    <input type="file" id="imageUpload" accept="image/*" hidden>
+                </div>
+
+                <button class="primary-button" id="nextButton" disabled>Next</button>
+            </div>
+        </div>
+
+        <!-- Analysis Screen -->
+        <div class="screen" id="analysisScreen" style="display: none;">
+            <div class="screen-content">
+                <div class="screen-header">
+                    <button class="back-button" data-target="occasionScreen"><i class="fas fa-arrow-left"></i></button>
+                </div>
+                
+                <div class="image-preview-container">
+                    <img id="outfitPreview" src="" alt="Your outfit">
+                </div>
+
+                <div class="analysis-status">
+                    <div class="loading-indicator">
+                        <div class="spinner"></div>
+                    </div>
+                    <p>Analyzing your outfit...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feedback Screen -->
+        <div class="screen" id="feedbackScreen" style="display: none;">
+            <div class="screen-content">
+                <div class="screen-header">
+                    <button class="back-button" data-target="analysisScreen"><i class="fas fa-arrow-left"></i></button>
+                </div>
+                
+                <div class="image-preview-container small">
+                    <img id="outfitPreviewSmall" src="" alt="Your outfit">
+                </div>
+
+                <div class="rating-container">
+                    <div class="rating-circle">
+                        <span id="ratingScore">85</span>
+                        <span class="rating-max">/100</span>
+                    </div>
+                </div>
+
+                <div class="feedback-container">
+                    <div class="feedback-tabs">
+                        <button class="tab-button active" data-tab="quickTake">Quick Take</button>
+                        <button class="tab-button" data-tab="highlights">Highlights</button>
+                        <button class="tab-button" data-tab="colorAnalysis">Colors</button>
+                        <button class="tab-button" data-tab="suggestions">Suggestions</button>
+                    </div>
+
+                    <div class="feedback-content">
+                        <div class="tab-content active" id="quickTake">
+                            <p id="quickTakeContent">Loading feedback...</p>
+                        </div>
+                        <div class="tab-content" id="highlights">
+                            <p id="highlightsContent">Loading feedback...</p>
+                        </div>
+                        <div class="tab-content" id="colorAnalysis">
+                            <p id="colorAnalysisContent">Loading feedback...</p>
+                        </div>
+                        <div class="tab-content" id="suggestions">
+                            <ul id="suggestionsContent">
+                                <li>Loading suggestions...</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feedback-tone">
+                    <button class="tone-button active" data-tone="gentle">Gentle</button>
+                    <button class="tone-button" data-tone="honest">Honest</button>
+                    <button class="tone-button" data-tone="fun">Fun</button>
+                </div>
+
+                <div class="chat-container">
+                    <input type="text" id="chatInput" placeholder="Ask a question about your outfit...">
+                    <button id="sendButton"><i class="fas fa-paper-plane"></i></button>
+                </div>
+
+                <button class="secondary-button" id="newPhotoButton">Analyze Another Outfit</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/modern-app.js"></script>
+</body>
+</html>

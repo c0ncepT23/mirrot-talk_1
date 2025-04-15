@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+transformers
+torch
+langchain
+langchain-anthropic
+anthropic
+python-multipart
+pillow

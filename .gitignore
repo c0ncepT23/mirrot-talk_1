@@ -1,0 +1,29 @@
+# Virtual environment
+fashion_venv/
+venv/
+ENV/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Uploads directory
+uploads/
+
+# Large files
+*.dll
+*.lib
+*.pyd
+
+# Node.js
+node_modules/
+npm-debug.log*
+
+# Firebase
+.firebase/
+firebase-debug.log*
+
+# Environment variables
+.env
