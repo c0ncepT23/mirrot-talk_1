@@ -83,7 +83,17 @@ class FashionAdvisor:
     
     async def analyze_image(self, image_path):
         """Analyze an outfit image and return a description"""
-        return self.blip_model.get_comprehensive_analysis(image_path)
+        try:
+            print(f"Calling BLIP model for image: {image_path}")
+            result = await self.blip_model.get_comprehensive_analysis(image_path)
+            print(f"BLIP model returned result: {result[:50]}...")
+            return result
+        except Exception as e:
+            import traceback
+            tb = traceback.format_exc()
+            error_msg = f"Error in analyze_image: {str(e)}\n{tb}"
+            print(error_msg)
+            raise Exception(error_msg)
     
     async def get_fashion_advice(self, outfit_description, user_input, style_goals=""):
         """Get fashion advice based on outfit description and user input"""
