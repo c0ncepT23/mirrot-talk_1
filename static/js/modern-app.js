@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', function() {
         welcome: document.getElementById('welcomeScreen'),
         occasion: document.getElementById('occasionScreen'),
         analysis: document.getElementById('analysisScreen'),
-        feedback: document.getElementById('feedbackScreen')
+        feedback: document.getElementById('feedbackScreen'),
+        profile: document.getElementById('profileScreen')
     };
     
     const elements = {
@@ -25,7 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
         chatInput: document.getElementById('chatInput'),
         sendButton: document.getElementById('sendButton'),
         newPhotoButton: document.getElementById('newPhotoButton'),
-        backButtons: document.querySelectorAll('.back-button')
+        backButtons: document.querySelectorAll('.back-button'),
+        shareButton: document.getElementById('shareButton')
     };
     
     // State variables
@@ -86,6 +88,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         elements.newPhotoButton.addEventListener('click', resetAndStartOver);
+        
+        // Share button
+        elements.shareButton.addEventListener('click', shareAnalysis);
     }
     
     // Show a specific screen
@@ -121,6 +126,22 @@ document.addEventListener('DOMContentLoaded', function() {
     async function handleImageUpload() {
         if (!currentImageFile) return;
         
+        // Check if anonymous user is trying to upload a second image
+        const isLoggedIn = isUserLoggedIn();
+        //const hasUploadedBefore = getCookie('anonymous_session_id') !== "";
+        const hasUploadedBefore = localStorage.getItem('has_uploaded') === 'true';
+        
+        if (!isLoggedIn && hasUploadedBefore) {
+            // Save current upload intent
+            window.pendingImageUpload = currentImageFile;
+            // Show login modal
+            window.showLoginModal();
+            return;
+        }
+
+        // Mark that user has uploaded an image
+        localStorage.setItem('has_uploaded', 'true');
+        
         // Get selected occasion
         styleGoals = elements.occasionSelect.value;
         
@@ -149,16 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error(`API error: ${response.status} ${response.statusText}`);
             }
             
-            let data;
-            const contentType = response.headers.get('content-type');
-            if (contentType && contentType.includes('application/json')) {
-                data = await response.json();
-            } else {
-                // Handle non-JSON response
-                const textResponse = await response.text();
-                console.error('Non-JSON response:', textResponse);
-                throw new Error('Server returned a non-JSON response');
-            }
+            const data = await response.json();
             
             if (data.success) {
                 // Save image path and description
@@ -167,6 +179,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Get feedback based on style goals
                 await getFashionAdvice();
+            } else if (data.requires_login) {
+                // User needs to login to continue
+                window.showLoginModal();
             } else {
                 throw new Error(data.message || 'Unknown error occurred');
             }
@@ -188,9 +203,6 @@ document.addEventListener('DOMContentLoaded', function() {
             formData.append('user_input', 'rate out of 100 and provide commentary');
             formData.append('style_goals', styleGoals);
             
-            // Show loading message if needed
-            // elements.quickTakeContent.textContent = "Getting fashion feedback...";
-            
             // Get fashion advice
             const response = await fetch('/api/advice', {
                 method: 'POST',
@@ -201,16 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error(`API error: ${response.status} ${response.statusText}`);
             }
             
-            let data;
-            const contentType = response.headers.get('content-type');
-            if (contentType && contentType.includes('application/json')) {
-                data = await response.json();
-            } else {
-                // Handle non-JSON response
-                const textResponse = await response.text();
-                console.error('Non-JSON response:', textResponse);
-                throw new Error('Server returned a non-JSON response');
-            }
+            const data = await response.json();
             
             if (data.success) {
                 // Process and display the feedback
@@ -234,7 +237,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Process feedback and extract sections
     function processFeedback(feedbackText) {
-        // Example parsing - this would need to be adjusted based on actual output format
         try {
             // Parse rating
             const ratingMatch = feedbackText.match(/# Outfit Rating: (\d+)\/100/);
@@ -335,15 +337,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error(`API error: ${response.status} ${response.statusText}`);
             }
             
-            let data;
-            const contentType = response.headers.get('content-type');
-            if (contentType && contentType.includes('application/json')) {
-                data = await response.json();
-            } else {
-                // Handle non-JSON response
-                const textResponse = await response.text();
-                throw new Error('Server returned a non-JSON response');
-            }
+            const data = await response.json();
             
             if (data.success) {
                 // Display the response
@@ -371,6 +365,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
+    // Share analysis via WhatsApp
+    function shareAnalysis() {
+        // Get rating and quick take
+        const rating = elements.ratingScore.textContent;
+        const quickTake = elements.quickTakeContent.textContent;
+        
+        // Create share text
+        const shareText = `Check out my outfit rating: ${rating}/100! "${quickTake}" - Analyzed by StyleMirror`;
+        
+        // Create WhatsApp share URL
+        const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+        
+        // Open WhatsApp in new window
+        window.open(whatsappUrl, '_blank');
+    }
+    
     // Reset and start over
     function resetAndStartOver() {
         // Reset state
@@ -392,7 +402,26 @@ document.addEventListener('DOMContentLoaded', function() {
         showScreen('occasion');
     }
     
+    // Helper function to get cookie value
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return "";
+    }
+    
+    // Helper function to check if user is logged in
+    function isUserLoggedIn() {
+        return getCookie('access_token') !== "";
+    }
+    
     // Initialize
     initEvents();
     showScreen('welcome');
+    
+    // Expose functions for auth.js
+    window.app = {
+        showScreen,
+        resetAndStartOver
+    };
 });

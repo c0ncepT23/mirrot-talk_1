@@ -7,3 +7,5 @@ langchain-anthropic
 anthropic
 python-multipart
 pillow
+langchain-openai
+openai

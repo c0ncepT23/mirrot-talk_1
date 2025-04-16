@@ -2,8 +2,9 @@
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_anthropic import ChatAnthropic
+from langchain_openai import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
-from config import ANTHROPIC_API_KEY
+from config import ANTHROPIC_API_KEY, OPENAI_API_KEY
 import os
 
 from app.models.blip_model import FashionBLIPModel
@@ -13,19 +14,31 @@ class FashionAdvisor:
     
     def __init__(self, api_key=ANTHROPIC_API_KEY):
         """Initialize the fashion advisor"""
-        # Set Anthropic API key
-        if api_key:
-            os.environ["ANTHROPIC_API_KEY"] = api_key
+        # Set API keys in environment
+        if ANTHROPIC_API_KEY:
+            os.environ["ANTHROPIC_API_KEY"] = ANTHROPIC_API_KEY
+        if OPENAI_API_KEY:
+            os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
         
         # Initialize BLIP model
         self.blip_model = FashionBLIPModel()
+        # Choose which model to use
+        use_openai = True  # Set to False to use Anthropic
+
+        if use_openai:
+            self.llm = ChatOpenAI(
+                model="gpt-4o",
+                temperature=0.7,
+                max_tokens=1000
+            )
+        else:
         
-        # Initialize LLM with Claude
-        self.llm = ChatAnthropic(
-            model="claude-3-7-sonnet-20250219",
-            temperature=0.7,
-            max_tokens=1000
-        )
+            # Initialize LLM with Claude
+            self.llm = ChatAnthropic(
+                model="claude-3-7-sonnet-20250219",
+                temperature=0.7,
+                max_tokens=1000
+            )
         
         # Create memory
         self.memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)

@@ -1,0 +1,131 @@
+/* static/css/auth-styles.css */
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: var(--radius-medium);
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-light);
+}
+
+.modal h2 {
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+.modal p {
+    margin-bottom: 20px;
+    color: var(--text-light);
+}
+
+.modal input[type="email"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #E0E0E0;
+    border-radius: var(--radius-small);
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* User Message */
+.user-message {
+    padding: 15px;
+    border-radius: var(--radius-medium);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.user-message.error {
+    background-color: #FFEBEE;
+    color: #D32F2F;
+}
+
+.user-message.success {
+    background-color: #E8F5E9;
+    color: #388E3C;
+}
+
+/* User Analysis History */
+.user-analysis-item {
+    display: flex;
+    margin-bottom: 15px;
+    background-color: white;
+    border-radius: var(--radius-small);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+}
+
+.analysis-thumbnail {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+.analysis-info {
+    flex: 1;
+    padding: 10px 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.analysis-date {
+    font-size: 12px;
+    color: var(--text-lighter);
+    margin-bottom: 5px;
+}
+
+.analysis-summary {
+    font-size: 14px;
+    color: var(--text-dark);
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.analysis-rating-badge {
+    align-self: flex-start;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 12px;
+    padding: 2px 8px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+.empty-analyses {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-light);
+}
+
+.empty-analyses i {
+    font-size: 48px;
+    color: var(--text-lighter);
+    margin-bottom: 15px;
+}

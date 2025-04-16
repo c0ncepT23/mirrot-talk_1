@@ -4,6 +4,7 @@ from pathlib import Path
 
 # API Keys
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
 
 # GCP/Firebase Settings
 GCP_PROJECT_ID = "fashion-app-456914"

@@ -4,10 +4,26 @@
     <title>StyleMirror | Fashion Advisor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/modern-styles.css">
+    <link rel="stylesheet" href="/css/auth-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="app-container">
+        <nav class="app-header">
+            <h1 class="app-title">StyleMirror</h1>
+            <div class="user-controls">
+                <button id="profileButton" class="profile-button" style="display: none;">
+                    <i class="fas fa-user"></i>
+                </button>
+                <button id="loginButton" class="login-button">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+                <button id="logoutButton" class="logout-button" style="display: none;">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </nav>
+
         <!-- Initial Screen -->
         <div class="screen" id="welcomeScreen">
             <div class="screen-content">
@@ -84,6 +100,12 @@
                     </div>
                 </div>
 
+                <div class="share-button-container">
+                    <button class="share-button" id="shareButton">
+                        <i class="fab fa-whatsapp"></i> Share Analysis
+                    </button>
+                </div>
+
                 <div class="feedback-container">
                     <div class="feedback-tabs">
                         <button class="tab-button active" data-tab="quickTake">Quick Take</button>
@@ -126,8 +148,44 @@
                 </div>
             </div>
         </div>
+
+        <!-- Profile Screen -->
+        <div class="screen" id="profileScreen" style="display: none;">
+            <div class="screen-content">
+                <div class="screen-header">
+                    <button class="back-button" data-target="welcomeScreen"><i class="fas fa-arrow-left"></i></button>
+                    <h2>Your Style History</h2>
+                </div>
+                
+                <div class="user-email-display">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="userEmailDisplay">user@example.com</span>
+                </div>
+                
+                <div class="analyses-container" id="analysesContainer">
+                    <div class="loading-indicator">
+                        <div class="spinner"></div>
+                    </div>
+                    <p>Loading your style history...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login Modal -->
+        <div class="modal" id="loginModal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Log In to Continue</h2>
+                <p>Please enter your email to save your fashion analyses</p>
+                <form id="loginForm">
+                    <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                    <button type="submit" class="primary-button">Log In</button>
+                </form>
+            </div>
+        </div>
     </div>
 
     <script src="/js/modern-app.js"></script>
+    <script src="/js/auth.js"></script>
 </body>
 </html>
